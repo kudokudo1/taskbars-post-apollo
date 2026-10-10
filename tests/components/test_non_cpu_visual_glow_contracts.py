@@ -77,6 +77,8 @@ for source in (
 # AM/PM remains present in both modes at the original 20px clock text size.
 assert "clockArea.is24Hour ? Colors.orange : Colors.cyan" in clock
 assert "clockArea.is24Hour\n                            ? Colors.orange\n                            : Colors.cyan" in clock
+assert 'Qt.formatDateTime(clock.date, "hh AP").split(" ")[0]' in clock
+assert 'Qt.formatDateTime(clock.date, "HH")' in clock
 assert 'text: Qt.formatDateTime(clock.date, "AP")' in clock
 assert '? "24H"' not in clock
 assert clock.count("color: Colors.white") >= 3
