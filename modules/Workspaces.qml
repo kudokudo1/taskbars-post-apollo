@@ -139,11 +139,10 @@ Rectangle {
                     opacity: workspacesWorkspaceButton.isActive ? 0.0 : 0.0
                 }
 
-                DropShadow {
+                SafeDropShadow {
                     anchors.fill: workspacesButtonBackground
 
-                    source: workspacesButtonBackground
-
+                    safeSource: workspacesButtonBackground
                     z: -1
 
                     horizontalOffset: 0
@@ -176,47 +175,25 @@ Rectangle {
                         font.pixelSize: 20
                     }
 
-                    DropShadow {
+                    // A single active/inactive sampled glow keeps the label
+                    // on one rendering plane (no double-printed glyphs).
+                    SafeDropShadow {
                         id: workspacesTextGlow
-
-                        source: workspacesText
+                        safeSource: workspacesText
                         anchors.fill: workspacesText
 
                         horizontalOffset: 0
                         verticalOffset: 0
-
                         radius: 14
                         samples: 15
-
                         z: 2
 
-                        opacity: workspacesButtonMouse.pressed ? 1.0 : workspacesButtonMouse.containsMouse ? 0.8 : 0.6
+                        opacity: workspacesButtonMouse.pressed ? 1.0
+                                 : workspacesButtonMouse.containsMouse ? 0.8
+                                 : workspacesWorkspaceButton.isActive ? 0.7 : 0.6
 
-                        color: workspacesButtonMouse.pressed ? Colors.cyan : workspacesButtonMouse.containsMouse ? Colors.cyan : Colors.cyan
-
-                        transparentBorder: true
-                    }
-
-                    DropShadow {
-                        id: workspacesActiveTextGlow
-
-                        anchors.fill: workspacesText
-
-                        source: workspacesText
-
-                        visible: workspacesWorkspaceButton.isActive
-
-                        horizontalOffset: 0
-                        verticalOffset: 0
-
-                        radius: 14
-                        samples: 15
-
-                        z: 2
-
-                        opacity: workspacesButtonMouse.pressed ? 1.0 : workspacesButtonMouse.containsMouse ? 0.8 : 0.7
-
-                        color: workspacesText.workspaceColor
+                        color: workspacesWorkspaceButton.isActive
+                               ? workspacesText.workspaceColor : Colors.cyan
 
                         transparentBorder: true
                     }
