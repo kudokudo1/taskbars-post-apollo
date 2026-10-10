@@ -74,8 +74,8 @@ for source in (
     assert f"safeSource: {source}" in clock
 
 # The operator-approved direction keeps cyan as the 12-hour primary identity
-# and orange as the 24-hour identity. Stars, colon, and the // separator stay
-# white at 0.6 opacity with tight full-strength mode-colored glows. AM/PM is a normal
+# and orange as the 24-hour identity. Stars, colon, and the // separator use
+# default/full white source opacity with tight full-strength mode-colored glows. AM/PM is a normal
 # state-colored element at default opacity and the original 20px size.
 assert "clockArea.is24Hour ? Colors.orange : Colors.cyan" in clock
 assert "clockArea.is24Hour\n                            ? Colors.orange\n                            : Colors.cyan" in clock
@@ -93,7 +93,7 @@ assert "+ contentRightPadding" in clock
 assert "(clockButton.contentLeftPadding" in clock
 assert "- clockButton.contentRightPadding) / 2" in clock
 assert clock.count("color: Colors.white") >= 3
-assert clock.count("opacity: 0.6") >= 4
+assert clock.count("opacity: 0.6") == 0
 assert clock.count("radius: 8") >= 4
 assert clock.count("samples: 15") >= 8
 assert clock.count("opacity: 1.0") >= 4
