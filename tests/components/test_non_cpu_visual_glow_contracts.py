@@ -71,8 +71,9 @@ for source in (
     assert f"id: {source}" in clock
     assert f"safeSource: {source}" in clock
 
-# The operator-approved direction keeps cyan as the clock's primary identity
-# while white carries ornament and punctuation.
+# The operator-approved direction keeps cyan as the 12-hour primary identity,
+# shifts the primary clock identity to orange in 24-hour mode, and keeps
+# stars/colon plus the 12-hour AM/PM suffix white.
 assert "clockArea.is24Hour ? Colors.orange : Colors.cyan" in clock
 assert "clockArea.is24Hour\n                            ? Colors.orange\n                            : Colors.cyan" in clock
 assert "clockArea.is24Hour\n                            ? Colors.orange\n                            : Colors.white" in clock
