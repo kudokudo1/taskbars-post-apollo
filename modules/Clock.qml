@@ -201,7 +201,7 @@ Item {
                         text:
                             clockArea.is24Hour
                             ? Qt.formatDateTime(clock.date, "HH")
-                            : Qt.formatDateTime(clock.date, "hh")
+                            : Qt.formatDateTime(clock.date, "hh AP").split(" ")[0]
 
                         color:
                             clockArea.is24Hour
