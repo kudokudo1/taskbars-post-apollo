@@ -15,8 +15,18 @@ Item {
     DockButton {
         id: clockButton
 
+        property int contentEdgePadding: 2
+
         implicitHeight: 50
-        implicitWidth: 151
+        // Match the containment rule used by Volume/Wi-Fi: preserve the
+        // established clock baseline, but grow around the real content so
+        // ornament, separators, and AM/PM never paint outside the module.
+        implicitWidth:
+            Math.max(
+                151,
+                Math.ceil(clockRow.implicitWidth)
+                + (contentEdgePadding * 2)
+            )
 
         contentGlowEnabled: false
 
