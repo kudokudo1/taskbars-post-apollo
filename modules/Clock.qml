@@ -38,50 +38,131 @@ Item {
             precision: SystemClock.Seconds
         }
 
-        // The clock intentionally uses several semantic color lanes instead
-        // of tinting the entire readout as one source. Each source-attached
-        // glow stays inside the same fixed slot as its visible source so the
-        // Row only owns semantic units, never effects.
+        // The clock keeps one cyan primary identity while white punctuation
+        // and ornament separate the stars, colon, and period/suffix. Each
+        // source-attached glow stays inside the same fixed slot as its visible
+        // source so the Row only owns semantic units, never effects.
         Row {
             id: clockRow
 
             anchors.centerIn: parent
             spacing: 7
 
-            Item {
+            Row {
                 id: clockIconContainer
 
-                width: clockIcon.implicitWidth
                 height: 20
+                spacing: 1
 
-                Text {
-                    id: clockIcon
-                    anchors.centerIn: parent
+                Item {
+                    id: clockLeftStarContainer
 
-                    text: " ๋࣭🕰 ⭑"
-                    color: Colors.orange
-                    font.pixelSize: 20
+                    width: clockLeftStar.implicitWidth
+                    height: 20
+
+                    GohuText {
+                        id: clockLeftStar
+                        anchors.centerIn: parent
+
+                        text: " ๋࣭"
+                        color: Colors.white
+                        font.pixelSize: 20
+                    }
+
+                    SafeDropShadow {
+                        anchors.fill: clockLeftStar
+                        safeSource: clockLeftStar
+
+                        horizontalOffset: 0
+                        verticalOffset: 0
+                        radius: 10
+                        samples: 9
+                        z: 2
+
+                        opacity:
+                            clockButton.pressed
+                            ? 1.0
+                            : clockButton.hovered
+                            ? 0.76
+                            : 0.52
+
+                        color: Colors.white
+                        transparentBorder: true
+                    }
                 }
 
-                SafeDropShadow {
-                    anchors.fill: clockIcon
-                    safeSource: clockIcon
+                Item {
+                    id: clockIconCoreContainer
 
-                    horizontalOffset: 0
-                    verticalOffset: 0
-                    radius: 14
-                    samples: 15
-                    z: 2
+                    width: clockIcon.implicitWidth
+                    height: 20
 
-                    opacity:
-                        clockButton.pressed
-                        ? 1.0
-                        : clockButton.hovered
-                        ? 0.8
-                        : 0.6
+                    Text {
+                        id: clockIcon
+                        anchors.centerIn: parent
 
-                    color: Colors.orange
-                    transparentBorder: true
+                        text: "🕰"
+                        color: Colors.cyan
+                        font.pixelSize: 20
+                    }
+
+                    SafeDropShadow {
+                        anchors.fill: clockIcon
+                        safeSource: clockIcon
+
+                        horizontalOffset: 0
+                        verticalOffset: 0
+                        radius: 14
+                        samples: 15
+                        z: 2
+
+                        opacity:
+                            clockButton.pressed
+                            ? 1.0
+                            : clockButton.hovered
+                            ? 0.8
+                            : 0.6
+
+                        color: Colors.cyan
+                        transparentBorder: true
+                    }
+                }
+
+                Item {
+                    id: clockRightStarContainer
+
+                    width: clockRightStar.implicitWidth
+                    height: 20
+
+                    GohuText {
+                        id: clockRightStar
+                        anchors.centerIn: parent
+
+                        text: "⭑"
+                        color: Colors.white
+                        font.pixelSize: 20
+                    }
+
+                    SafeDropShadow {
+                        anchors.fill: clockRightStar
+                        safeSource: clockRightStar
+
+                        horizontalOffset: 0
+                        verticalOffset: 0
+                        radius: 10
+                        samples: 9
+                        z: 2
+
+                        opacity:
+                            clockButton.pressed
+                            ? 1.0
+                            : clockButton.hovered
+                            ? 0.76
+                            : 0.52
+
+                        color: Colors.white
+                        transparentBorder: true
+                    }
                 }
             }
 
@@ -143,7 +224,7 @@ Item {
                         anchors.centerIn: parent
 
                         text: ":"
-                        color: Colors.magenta
+                        color: Colors.white
                         font.pixelSize: 20
                     }
 
@@ -164,7 +245,7 @@ Item {
                             ? 0.8
                             : 0.6
 
-                        color: Colors.magenta
+                        color: Colors.white
                         transparentBorder: true
                     }
                 }
@@ -221,7 +302,7 @@ Item {
                             ? "24H"
                             : Qt.formatDateTime(clock.date, "AP")
 
-                        color: Colors.yellow
+                        color: Colors.white
                         font.pixelSize: 11
                     }
 
@@ -242,7 +323,7 @@ Item {
                             ? 0.75
                             : 0.52
 
-                        color: Colors.yellow
+                        color: Colors.white
                         transparentBorder: true
                     }
                 }
