@@ -52,9 +52,9 @@ Item {
 
         // The clock keeps a cyan primary identity in 12-hour mode and shifts
         // that primary identity to orange in alternate 24-hour mode. Stars,
-        // stars and punctuation accents remain white at 0.6 opacity while
-        // their tight full-strength Wi-Fi-style glows carry the active mode
-        // color. AM/PM is a normal
+        // stars and punctuation accents now use the full Wi-Fi data-output
+        // treatment: default/full white source opacity with a tight,
+        // full-strength mode-colored glow. AM/PM is a normal
         // module-state element again: cyan in 12-hour mode, orange in 24-hour
         // mode, at default opacity and the original 20px size. The // slot
         // carries a tiny geometry gap on each side without literal spaces.
@@ -86,7 +86,6 @@ Item {
 
                         text: " ๋࣭"
                         color: Colors.white
-                        opacity: 0.6
                         font.pixelSize: 20
                     }
 
@@ -165,7 +164,6 @@ Item {
 
                         text: "⭑"
                         color: Colors.white
-                        opacity: 0.6
                         font.pixelSize: 20
                     }
 
@@ -255,7 +253,6 @@ Item {
 
                         text: ":"
                         color: Colors.white
-                        opacity: 0.6
                         font.pixelSize: 20
                     }
 
@@ -336,7 +333,6 @@ Item {
 
                         text: "//"
                         color: Colors.white
-                        opacity: 0.6
                         font.pixelSize: 20
                     }
 
