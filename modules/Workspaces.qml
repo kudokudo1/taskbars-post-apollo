@@ -175,8 +175,11 @@ Rectangle {
                         font.pixelSize: 20
                     }
 
-                    // A single active/inactive sampled glow keeps the label
-                    // on one rendering plane (no double-printed glyphs).
+                    // Intentional dual-layer workspace treatment:
+                    // cyan remains the base text aura while an active
+                    // workspace receives a second glow in its workspace color.
+                    // Both sampled effects stay inside the text slot so the
+                    // surrounding layout never owns their placement.
                     SafeDropShadow {
                         id: workspacesTextGlow
                         safeSource: workspacesText
@@ -188,13 +191,34 @@ Rectangle {
                         samples: 15
                         z: 2
 
-                        opacity: workspacesButtonMouse.pressed ? 1.0
-                                 : workspacesButtonMouse.containsMouse ? 0.8
-                                 : workspacesWorkspaceButton.isActive ? 0.7 : 0.6
+                        opacity:
+                            workspacesButtonMouse.pressed ? 1.0
+                            : workspacesButtonMouse.containsMouse ? 0.8
+                            : 0.6
 
-                        color: workspacesWorkspaceButton.isActive
-                               ? workspacesText.workspaceColor : Colors.cyan
+                        color: Colors.cyan
+                        transparentBorder: true
+                    }
 
+                    SafeDropShadow {
+                        id: workspacesActiveTextGlow
+                        safeSource: workspacesText
+                        anchors.fill: workspacesText
+
+                        visible: workspacesWorkspaceButton.isActive
+
+                        horizontalOffset: 0
+                        verticalOffset: 0
+                        radius: 14
+                        samples: 15
+                        z: 2
+
+                        opacity:
+                            workspacesButtonMouse.pressed ? 1.0
+                            : workspacesButtonMouse.containsMouse ? 0.8
+                            : 0.7
+
+                        color: workspacesText.workspaceColor
                         transparentBorder: true
                     }
                 }
