@@ -87,10 +87,7 @@ Item {
                             ? 0.76
                             : 0.52
 
-                        color:
-                            clockArea.is24Hour
-                            ? Colors.orange
-                            : Colors.white
+                        color: Colors.white
                         transparentBorder: true
                     }
                 }
@@ -348,7 +345,10 @@ Item {
                             ? 0.75
                             : 0.52
 
-                        color: Colors.white
+                        color:
+                            clockArea.is24Hour
+                            ? Colors.orange
+                            : Colors.white
                         transparentBorder: true
                     }
                 }
