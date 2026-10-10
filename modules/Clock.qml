@@ -53,7 +53,8 @@ Item {
         // The clock keeps a cyan primary identity in 12-hour mode and shifts
         // that primary identity to orange in alternate 24-hour mode. Stars,
         // stars and punctuation accents remain white at 0.6 opacity while
-        // their stronger glows carry the active mode color. AM/PM is a normal
+        // their tight full-strength Wi-Fi-style glows carry the active mode
+        // color. AM/PM is a normal
         // module-state element again: cyan in 12-hour mode, orange in 24-hour
         // mode, at default opacity and the original 20px size. The // slot
         // carries a tiny geometry gap on each side without literal spaces.
@@ -95,16 +96,11 @@ Item {
 
                         horizontalOffset: 0
                         verticalOffset: 0
-                        radius: 10
-                        samples: 9
+                        radius: 8
+                        samples: 15
                         z: 2
 
-                        opacity:
-                            clockButton.pressed
-                            ? 1.0
-                            : clockButton.hovered
-                            ? 0.90
-                            : 0.72
+                        opacity: 1.0
 
                         color:
                             clockArea.is24Hour
@@ -179,16 +175,11 @@ Item {
 
                         horizontalOffset: 0
                         verticalOffset: 0
-                        radius: 10
-                        samples: 9
+                        radius: 8
+                        samples: 15
                         z: 2
 
-                        opacity:
-                            clockButton.pressed
-                            ? 1.0
-                            : clockButton.hovered
-                            ? 0.90
-                            : 0.72
+                        opacity: 1.0
 
                         color:
                             clockArea.is24Hour
@@ -274,16 +265,11 @@ Item {
 
                         horizontalOffset: 0
                         verticalOffset: 0
-                        radius: 14
+                        radius: 8
                         samples: 15
                         z: 2
 
-                        opacity:
-                            clockButton.pressed
-                            ? 1.0
-                            : clockButton.hovered
-                            ? 0.90
-                            : 0.72
+                        opacity: 1.0
 
                         color:
                             clockArea.is24Hour
@@ -360,16 +346,11 @@ Item {
 
                         horizontalOffset: 0
                         verticalOffset: 0
-                        radius: 14
+                        radius: 8
                         samples: 15
                         z: 2
 
-                        opacity:
-                            clockButton.pressed
-                            ? 1.0
-                            : clockButton.hovered
-                            ? 0.90
-                            : 0.72
+                        opacity: 1.0
 
                         color:
                             clockArea.is24Hour
