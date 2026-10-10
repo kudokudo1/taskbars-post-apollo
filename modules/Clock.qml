@@ -39,10 +39,10 @@ Item {
         }
 
         // The clock keeps a cyan primary identity in 12-hour mode and shifts
-        // that primary identity to orange in alternate 24-hour mode. White
-        // punctuation/ornament separates the stars, colon, and AM/PM suffix.
-        // Each source-attached glow stays inside the same fixed slot as its
-        // visible source so the Row only owns semantic units, never effects.
+        // that primary identity to orange in alternate 24-hour mode. Stars,
+        // colon, and AM/PM remain white while their glows carry the active
+        // mode color. AM/PM remains present in both modes at the original
+        // clock text size. Each source-attached glow stays inside its slot.
         Row {
             id: clockRow
 
@@ -87,7 +87,10 @@ Item {
                             ? 0.76
                             : 0.52
 
-                        color: Colors.white
+                        color:
+                            clockArea.is24Hour
+                            ? Colors.orange
+                            : Colors.cyan
                         transparentBorder: true
                     }
                 }
@@ -167,7 +170,10 @@ Item {
                             ? 0.76
                             : 0.52
 
-                        color: Colors.white
+                        color:
+                            clockArea.is24Hour
+                            ? Colors.orange
+                            : Colors.cyan
                         transparentBorder: true
                     }
                 }
@@ -258,7 +264,10 @@ Item {
                             ? 0.8
                             : 0.6
 
-                        color: Colors.white
+                        color:
+                            clockArea.is24Hour
+                            ? Colors.orange
+                            : Colors.cyan
                         transparentBorder: true
                     }
                 }
@@ -316,16 +325,9 @@ Item {
                         id: clockPeriod
                         anchors.centerIn: parent
 
-                        text:
-                            clockArea.is24Hour
-                            ? "24H"
-                            : Qt.formatDateTime(clock.date, "AP")
-
-                        color:
-                            clockArea.is24Hour
-                            ? Colors.orange
-                            : Colors.white
-                        font.pixelSize: 11
+                        text: Qt.formatDateTime(clock.date, "AP")
+                        color: Colors.white
+                        font.pixelSize: 20
                     }
 
                     SafeDropShadow {
@@ -334,21 +336,21 @@ Item {
 
                         horizontalOffset: 0
                         verticalOffset: 0
-                        radius: 8
-                        samples: 9
+                        radius: 14
+                        samples: 15
                         z: 2
 
                         opacity:
                             clockButton.pressed
                             ? 1.0
                             : clockButton.hovered
-                            ? 0.75
-                            : 0.52
+                            ? 0.8
+                            : 0.6
 
                         color:
                             clockArea.is24Hour
                             ? Colors.orange
-                            : Colors.white
+                            : Colors.cyan
                         transparentBorder: true
                     }
                 }
