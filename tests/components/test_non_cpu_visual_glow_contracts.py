@@ -88,7 +88,7 @@ assert clock.count("color: Colors.white") >= 3
 assert clock.count("opacity: 0.6") >= 4
 assert clock.count("? 0.90") >= 4
 assert clock.count(": 0.72") >= 4
-period_start = clock.index("id: clockPeriod")
+period_start = clock.index("id: clockPeriod\n")
 period_end = clock.index("SafeDropShadow", period_start)
 period_text = clock[period_start:period_end]
 assert "color: Colors.white" not in period_text
