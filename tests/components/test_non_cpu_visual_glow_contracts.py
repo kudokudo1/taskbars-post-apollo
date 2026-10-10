@@ -17,6 +17,7 @@ SURFACES = {
         "clockHour",
         "clockColon",
         "clockMinute",
+        "clockPeriodSeparator",
         "clockPeriod",
     ),
     "modules/Volumebar.qml": (
@@ -66,25 +67,34 @@ for source in (
     "clockHour",
     "clockColon",
     "clockMinute",
+    "clockPeriodSeparator",
     "clockPeriod",
 ):
     assert f"id: {source}" in clock
     assert f"safeSource: {source}" in clock
 
 # The operator-approved direction keeps cyan as the 12-hour primary identity
-# and orange as the 24-hour identity. Stars, colon, and AM/PM stay white at
-# 0.6 opacity while their stronger sampled glows follow the current mode color.
-# AM/PM remains present in both modes and is slightly smaller than the body.
+# and orange as the 24-hour identity. Stars, colon, and the // separator stay
+# white at 0.6 opacity with stronger mode-colored glows. AM/PM is a normal
+# state-colored element at default opacity and remains slightly smaller.
 assert "clockArea.is24Hour ? Colors.orange : Colors.cyan" in clock
 assert "clockArea.is24Hour\n                            ? Colors.orange\n                            : Colors.cyan" in clock
 assert 'Qt.formatDateTime(clock.date, "hh AP").split(" ")[0]' in clock
 assert 'Qt.formatDateTime(clock.date, "HH")' in clock
+assert 'text: "//"' in clock
 assert 'text: Qt.formatDateTime(clock.date, "AP")' in clock
 assert '? "24H"' not in clock
 assert clock.count("color: Colors.white") >= 3
 assert clock.count("opacity: 0.6") >= 4
 assert clock.count("? 0.90") >= 4
 assert clock.count(": 0.72") >= 4
+period_start = clock.index("id: clockPeriod")
+period_end = clock.index("SafeDropShadow", period_start)
+period_text = clock[period_start:period_end]
+assert "color: Colors.white" not in period_text
+assert "opacity: 0.6" not in period_text
+assert "? Colors.orange" in period_text
+assert ": Colors.cyan" in period_text
 assert "font.pixelSize: 11" not in clock
 assert "font.pixelSize: 17" in clock
 assert "font.pixelSize: 20" in clock
