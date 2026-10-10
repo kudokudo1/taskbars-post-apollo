@@ -75,7 +75,7 @@ for source in (
 
 # The operator-approved direction keeps cyan as the 12-hour primary identity
 # and orange as the 24-hour identity. Stars, colon, and the // separator stay
-# white at 0.6 opacity with stronger mode-colored glows. AM/PM is a normal
+# white at 0.6 opacity with tight full-strength mode-colored glows. AM/PM is a normal
 # state-colored element at default opacity and the original 20px size.
 assert "clockArea.is24Hour ? Colors.orange : Colors.cyan" in clock
 assert "clockArea.is24Hour\n                            ? Colors.orange\n                            : Colors.cyan" in clock
@@ -94,8 +94,9 @@ assert "(clockButton.contentLeftPadding" in clock
 assert "- clockButton.contentRightPadding) / 2" in clock
 assert clock.count("color: Colors.white") >= 3
 assert clock.count("opacity: 0.6") >= 4
-assert clock.count("? 0.90") >= 4
-assert clock.count(": 0.72") >= 4
+assert clock.count("radius: 8") >= 4
+assert clock.count("samples: 15") >= 8
+assert clock.count("opacity: 1.0") >= 4
 period_start = clock.index("id: clockPeriod\n")
 period_end = clock.index("SafeDropShadow", period_start)
 period_text = clock[period_start:period_end]
