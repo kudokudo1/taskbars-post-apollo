@@ -622,6 +622,9 @@ PanelWindow {
                         ? Colors.orange
                         : Colors.cyan
 
+                    // The close halo and front wash extend beyond the face.
+                    clip: false
+
                     Behavior on scale {
                         NumberAnimation {
                             duration: 90
@@ -632,12 +635,15 @@ PanelWindow {
                     Column {
                         width: parent.width
                         anchors.centerIn: parent
+                        clip: false
 
                         spacing: 1
 
                         Item {
+                            id: modeIconSlot
                             width: parent.width
                             height: 29
+                            clip: false
 
                             Loader {
                                 id: thermalModeIcon
@@ -734,6 +740,7 @@ PanelWindow {
                             width: modeCaption.implicitWidth
                             height: modeCaption.implicitHeight
                             anchors.horizontalCenter: parent.horizontalCenter
+                            clip: false
 
                             QuietText {
                                 id: modeCaption
