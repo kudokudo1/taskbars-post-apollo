@@ -40,10 +40,10 @@ Item {
 
         // The clock keeps a cyan primary identity in 12-hour mode and shifts
         // that primary identity to orange in alternate 24-hour mode. Stars,
-        // colon, and AM/PM remain white at 0.8 opacity while their stronger
+        // colon, and AM/PM remain white at 0.6 opacity while their stronger
         // glows carry the active mode color. AM/PM remains present in both
-        // modes at the original clock text size. Each source-attached glow
-        // stays inside its slot.
+        // modes and is slightly smaller than the main clock text. Each
+        // source-attached glow stays inside its slot.
         Row {
             id: clockRow
 
@@ -68,7 +68,7 @@ Item {
 
                         text: " ๋࣭"
                         color: Colors.white
-                        opacity: 0.8
+                        opacity: 0.6
                         font.pixelSize: 20
                     }
 
@@ -152,7 +152,7 @@ Item {
 
                         text: "⭑"
                         color: Colors.white
-                        opacity: 0.8
+                        opacity: 0.6
                         font.pixelSize: 20
                     }
 
@@ -247,7 +247,7 @@ Item {
 
                         text: ":"
                         color: Colors.white
-                        opacity: 0.8
+                        opacity: 0.6
                         font.pixelSize: 20
                     }
 
@@ -331,8 +331,8 @@ Item {
 
                         text: Qt.formatDateTime(clock.date, "AP")
                         color: Colors.white
-                        opacity: 0.8
-                        font.pixelSize: 20
+                        opacity: 0.6
+                        font.pixelSize: 17
                     }
 
                     SafeDropShadow {
