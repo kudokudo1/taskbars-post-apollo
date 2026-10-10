@@ -15,7 +15,8 @@ Item {
     DockButton {
         id: clockButton
 
-        property int contentEdgePadding: 2
+        property int contentLeftPadding: 2
+        property int contentRightPadding: 4
 
         implicitHeight: 50
         // Match the containment rule used by Volume/Wi-Fi: preserve the
@@ -25,7 +26,8 @@ Item {
             Math.max(
                 151,
                 Math.ceil(clockRow.implicitWidth)
-                + (contentEdgePadding * 2)
+                + contentLeftPadding
+                + contentRightPadding
             )
 
         contentGlowEnabled: false
@@ -60,6 +62,9 @@ Item {
             id: clockRow
 
             anchors.centerIn: parent
+            anchors.horizontalCenterOffset:
+                (clockButton.contentLeftPadding
+                 - clockButton.contentRightPadding) / 2
             spacing: 7
 
             Row {
