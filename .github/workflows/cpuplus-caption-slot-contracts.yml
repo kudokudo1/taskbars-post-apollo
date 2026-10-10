@@ -1,0 +1,29 @@
+name: CPU++ caption-slot contracts
+
+on:
+  pull_request:
+    paths:
+      - "widgets/CpuPlusW.qml"
+      - "tests/components/test_cpuplus_caption_slot_contracts.py"
+      - ".github/workflows/cpuplus-caption-slot-contracts.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "widgets/CpuPlusW.qml"
+      - "tests/components/test_cpuplus_caption_slot_contracts.py"
+      - ".github/workflows/cpuplus-caption-slot-contracts.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Verify CPU++ caption-slot structure
+        run: python3 tests/components/test_cpuplus_caption_slot_contracts.py
+      - name: Preserve visual language pilot contracts
+        run: python3 tests/components/test_visual_language_recipes.py
