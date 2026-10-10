@@ -73,8 +73,8 @@ for source in (
 
 # The operator-approved direction keeps cyan as the 12-hour primary identity
 # and orange as the 24-hour identity. Stars, colon, and AM/PM stay white at
-# 0.8 opacity while their stronger sampled glows follow the current mode color.
-# AM/PM remains present in both modes at the original 20px clock text size.
+# 0.6 opacity while their stronger sampled glows follow the current mode color.
+# AM/PM remains present in both modes and is slightly smaller than the body.
 assert "clockArea.is24Hour ? Colors.orange : Colors.cyan" in clock
 assert "clockArea.is24Hour\n                            ? Colors.orange\n                            : Colors.cyan" in clock
 assert 'Qt.formatDateTime(clock.date, "hh AP").split(" ")[0]' in clock
@@ -82,10 +82,11 @@ assert 'Qt.formatDateTime(clock.date, "HH")' in clock
 assert 'text: Qt.formatDateTime(clock.date, "AP")' in clock
 assert '? "24H"' not in clock
 assert clock.count("color: Colors.white") >= 3
-assert clock.count("opacity: 0.8") >= 4
+assert clock.count("opacity: 0.6") >= 4
 assert clock.count("? 0.90") >= 4
 assert clock.count(": 0.72") >= 4
 assert "font.pixelSize: 11" not in clock
+assert "font.pixelSize: 17" in clock
 assert "font.pixelSize: 20" in clock
 assert "color: Colors.magenta" not in clock
 assert "color: Colors.yellow" not in clock
