@@ -409,216 +409,15 @@ PanelWindow {
 
     // ============================================================
     // SHARED THERMAL ICON
-    // Copied from AppControl's canonical THERMAL composition so the
-    // two surfaces speak the same visual language.
+    // AppControl and CPU++ use the same widgets/thermal/ThermalIcon.qml
+    // source; do not duplicate its glyph/effect implementation here.
     // ============================================================
 
+    // Reuse the AppControl/CPU++ shared glyph construction.
+    // All positioners own slots; the thermal composition owns its effects.
     Component {
         id: thermalIconComponent
-
-        Item {
-            id: thermalIconRoot
-
-            property color iconColor: Colors.orange
-            property color glowColor: Colors.orange
-            property real iconScale: 1.0
-            property real glowOpacity: 0.46
-            property bool pressed: false
-
-            opacity: 1.0
-            implicitWidth: 59 * iconScale
-            implicitHeight: 24 * iconScale
-            width: implicitWidth
-            height: implicitHeight
-
-            Item {
-                id: thermalIconScaledContent
-
-                width: 59
-                height: 24
-
-                anchors.centerIn: parent
-
-                scale: thermalIconRoot.iconScale
-                transformOrigin: Item.Center
-                opacity: 1.0
-
-                GohuText {
-                    id: thermalIconTopLeftStar
-
-                    x: 15
-                    y: -3
-
-                    text: "⋆"
-
-                    font.pixelSize: 7
-
-                    opacity: 1.0
-
-                    color:
-                        thermalIconRoot.pressed
-                        ? Colors.black
-                        : thermalIconRoot.iconColor
-                }
-
-                DropShadow {
-                    anchors.fill: thermalIconTopLeftStar
-                    source: thermalIconTopLeftStar
-
-                    visible: !thermalIconRoot.pressed
-
-                    horizontalOffset: 0
-                    verticalOffset: 0
-
-                    radius: 4
-                    samples: 5
-
-                    opacity: thermalIconRoot.glowOpacity
-                    color: thermalIconRoot.glowColor
-
-                    transparentBorder: true
-                }
-
-                Row {
-                    id: thermalIconOuterRow
-
-                    anchors.centerIn: parent
-
-                    spacing: 1
-
-                    Row {
-                        id: thermalIconLeftCoreRow
-
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        spacing: -9
-
-                        Item {
-                            width: thermalIconLeft.implicitWidth
-                            height: 24
-
-                            GohuText {
-                                id: thermalIconLeft
-
-                                anchors.verticalCenter: parent.verticalCenter
-
-                                text: "₊˚⊹"
-
-                                font.pixelSize: 13
-                                font.letterSpacing: -1.6
-
-                                opacity: 1.0
-
-                                color:
-                                    thermalIconRoot.pressed
-                                    ? Colors.black
-                                    : thermalIconRoot.iconColor
-                            }
-
-                            DropShadow {
-                                anchors.fill: thermalIconLeft
-                                source: thermalIconLeft
-
-                                visible: !thermalIconRoot.pressed
-
-                                horizontalOffset: 0
-                                verticalOffset: 0
-
-                                radius: 5
-                                samples: 5
-
-                                opacity: thermalIconRoot.glowOpacity
-                                color: thermalIconRoot.glowColor
-
-                                transparentBorder: true
-                            }
-                        }
-
-                        Item {
-                            width: thermalIconCore.implicitWidth
-                            height: 24
-
-                            Text {
-                                id: thermalIconCore
-
-                                anchors.verticalCenter: parent.verticalCenter
-
-                                text: "🌡"
-
-                                font.family: "Noto Sans Symbols2"
-                                font.pixelSize: 20
-                                font.weight: Font.Bold
-
-                                opacity: 1.0
-
-                                color:
-                                    thermalIconRoot.pressed
-                                    ? Colors.black
-                                    : thermalIconRoot.iconColor
-                            }
-
-                            DropShadow {
-                                anchors.fill: thermalIconCore
-                                source: thermalIconCore
-
-                                visible: !thermalIconRoot.pressed
-
-                                horizontalOffset: 0
-                                verticalOffset: 0
-
-                                radius: 5
-                                samples: 5
-
-                                opacity: thermalIconRoot.glowOpacity * 0.76
-                                color: thermalIconRoot.glowColor
-
-                                transparentBorder: true
-                            }
-                        }
-                    }
-
-                    Item {
-                        width: thermalIconRight.implicitWidth
-                        height: 24
-
-                        GohuText {
-                            id: thermalIconRight
-
-                            anchors.verticalCenter: parent.verticalCenter
-
-                            text: "๋࣭⭑"
-
-                            font.pixelSize: 13
-
-                            opacity: 1.0
-
-                            color:
-                                thermalIconRoot.pressed
-                                ? Colors.black
-                                : thermalIconRoot.iconColor
-                        }
-
-                        DropShadow {
-                            anchors.fill: thermalIconRight
-                            source: thermalIconRight
-
-                            visible: !thermalIconRoot.pressed
-
-                            horizontalOffset: 0
-                            verticalOffset: 0
-
-                            radius: 5
-                            samples: 5
-
-                            opacity: thermalIconRoot.glowOpacity
-                            color: thermalIconRoot.glowColor
-
-                            transparentBorder: true
-                        }
-                    }
-                }
-            }
-        }
+        ThermalIcon { }
     }
 
     // ============================================================
@@ -823,6 +622,9 @@ PanelWindow {
                         ? Colors.orange
                         : Colors.cyan
 
+                    // The close halo and front wash extend beyond the face.
+                    clip: false
+
                     Behavior on scale {
                         NumberAnimation {
                             duration: 90
@@ -833,12 +635,15 @@ PanelWindow {
                     Column {
                         width: parent.width
                         anchors.centerIn: parent
+                        clip: false
 
                         spacing: 1
 
                         Item {
+                            id: modeIconSlot
                             width: parent.width
                             height: 29
+                            clip: false
 
                             Loader {
                                 id: thermalModeIcon
@@ -855,13 +660,6 @@ PanelWindow {
                                     item.iconScale = 0.82;
                                     item.iconColor = Qt.binding(function() {
                                         return modeButton.contentColor;
-                                    });
-                                    item.glowColor = Qt.binding(function() {
-                                        return modeButton.isSelected
-                                               ? Colors.magenta
-                                               : modeButton.isHovered
-                                               ? Colors.orange
-                                               : Colors.cyan;
                                     });
                                     item.pressed = Qt.binding(function() {
                                         return modeButton.isPressed;
@@ -935,30 +733,40 @@ PanelWindow {
 
                         // AppControl hierarchy: secondary mode name stays dim
                         // white while the icon takes the primary state color.
-                        QuietText {
-                            id: modeCaption
+                        // Column lays out a semantic caption slot, not its
+                        // source-attached glow as an independent child.
+                        Item {
+                            id: modeCaptionSlot
+                            width: modeCaption.implicitWidth
+                            height: modeCaption.implicitHeight
                             anchors.horizontalCenter: parent.horizontalCenter
+                            clip: false
 
-                            text: modelData.name
-                            font.pixelSize: 10
-                            color: modeButton.isPressed
-                                   ? Colors.black : Colors.white
-                            quietOpacity:
-                                modeButton.isPressed ? 0.42
-                                : modeButton.isHovered || modeButton.isSelected
-                                ? 0.48 : 0.34
-                        }
+                            QuietText {
+                                id: modeCaption
+                                anchors.centerIn: parent
 
-                        TextHashGlow {
-                            safeSource: modeCaption
-                            foregroundColor: modeCaption.color
-                            preferredGlowColor: Colors.white
-                            requestedVisible: !modeButton.isPressed
-                            radius: 5
-                            samples: 7
-                            opacity:
-                                modeButton.isHovered || modeButton.isSelected
-                                ? 0.10 : 0.06
+                                text: modelData.name
+                                font.pixelSize: 10
+                                color: modeButton.isPressed
+                                       ? Colors.black : Colors.white
+                                quietOpacity:
+                                    modeButton.isPressed ? 0.42
+                                    : modeButton.isHovered || modeButton.isSelected
+                                    ? 0.48 : 0.34
+                            }
+
+                            TextHashGlow {
+                                safeSource: modeCaption
+                                foregroundColor: modeCaption.color
+                                preferredGlowColor: Colors.white
+                                requestedVisible: !modeButton.isPressed
+                                radius: 5
+                                samples: 7
+                                opacity:
+                                    modeButton.isHovered || modeButton.isSelected
+                                    ? 0.10 : 0.06
+                            }
                         }
                     }
 
@@ -1176,11 +984,6 @@ PanelWindow {
                         onLoaded: {
                             item.iconScale = 1.08;
                             item.iconColor = Qt.binding(function() {
-                                return cpuPlusWindow.monitorEntryAccent(
-                                    selectedMonitorIdentity.entry
-                                );
-                            });
-                            item.glowColor = Qt.binding(function() {
                                 return cpuPlusWindow.monitorEntryAccent(
                                     selectedMonitorIdentity.entry
                                 );
@@ -1678,11 +1481,6 @@ PanelWindow {
                                                    ? Colors.magenta
                                                    : Colors.orange;
                                         });
-                                        item.glowColor = Qt.binding(function() {
-                                            return subModeButton.isSelected
-                                                   ? Colors.magenta
-                                                   : Colors.orange;
-                                        });
                                         item.pressed = Qt.binding(function() {
                                             return subModeButton.isPressed;
                                         });
@@ -1951,14 +1749,6 @@ PanelWindow {
                                                    ? Colors.black
                                                    : monitorRowButton.isHovered
                                                      || monitorRowButton.isSelected
-                                                   ? Colors.orange
-                                                   : cpuPlusWindow.monitorEntryAccent(
-                                                         monitorRowButton.modelData
-                                                     );
-                                        });
-                                        item.glowColor = Qt.binding(function() {
-                                            return monitorRowButton.isHovered
-                                                   || monitorRowButton.isSelected
                                                    ? Colors.orange
                                                    : cpuPlusWindow.monitorEntryAccent(
                                                          monitorRowButton.modelData

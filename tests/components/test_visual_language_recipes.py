@@ -101,7 +101,12 @@ assert "pressed: modeButton.isPressed" in mode
 assert "TextHashGlow {" in mode
 assert "safeSource: textModeIcon" in mode
 assert "foregroundColor: textModeIcon.color" in mode
-assert "return modeButton.isSelected" in mode
+# The THERMAL glyph is owned by the shared component rather than an
+# embedded copy in CpuPlusW. Color arrives through its iconColor binding.
+assert "ThermalIcon { }" in cpu
+assert "item.iconColor = Qt.binding" in mode
+assert "return modeButton.contentColor;" in mode
+assert "item.glowColor" not in cpu
 assert "? Colors.magenta" in mode
 assert "QuietText {" in mode
 assert "quietOpacity:" in mode
