@@ -935,31 +935,15 @@ PanelWindow {
 
                         // AppControl hierarchy: secondary mode name stays dim
                         // white while the icon takes the primary state color.
-                        QuietText {
-                            id: modeCaption
+                        // Column lays out a semantic caption slot, not its
+                        // source-attached glow as an independent child.
+                        Item {
+                            id: modeCaptionSlot
+                            width: modeCaption.implicitWidth
+                            height: modeCaption.implicitHeight
                             anchors.horizontalCenter: parent.horizontalCenter
 
-                            text: modelData.name
-                            font.pixelSize: 10
-                            color: modeButton.isPressed
-                                   ? Colors.black : Colors.white
-                            quietOpacity:
-                                modeButton.isPressed ? 0.42
-                                : modeButton.isHovered || modeButton.isSelected
-                                ? 0.48 : 0.34
-                        }
-
-                        TextHashGlow {
-                            safeSource: modeCaption
-                            foregroundColor: modeCaption.color
-                            preferredGlowColor: Colors.white
-                            requestedVisible: !modeButton.isPressed
-                            radius: 5
-                            samples: 7
-                            opacity:
-                                modeButton.isHovered || modeButton.isSelected
-                                ? 0.10 : 0.06
-                        }
+                            QuietText {                                id: modeCaption                                anchors.centerIn: parent                                text: modelData.name                                font.pixelSize: 10                                color: modeButton.isPressed                                       ? Colors.black : Colors.white                                quietOpacity:                                    modeButton.isPressed ? 0.42                                    : modeButton.isHovered || modeButton.isSelected                                    ? 0.48 : 0.34                            }                            TextHashGlow {                                safeSource: modeCaption                                foregroundColor: modeCaption.color                                preferredGlowColor: Colors.white                                requestedVisible: !modeButton.isPressed                                radius: 5                                samples: 7                                opacity:                                    modeButton.isHovered || modeButton.isSelected                                    ? 0.10 : 0.06                            }                        }
                     }
 
                     MouseArea {
