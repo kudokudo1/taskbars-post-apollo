@@ -40,9 +40,10 @@ Item {
 
         // The clock keeps a cyan primary identity in 12-hour mode and shifts
         // that primary identity to orange in alternate 24-hour mode. Stars,
-        // colon, and AM/PM remain white while their glows carry the active
-        // mode color. AM/PM remains present in both modes at the original
-        // clock text size. Each source-attached glow stays inside its slot.
+        // colon, and AM/PM remain white at 0.8 opacity while their stronger
+        // glows carry the active mode color. AM/PM remains present in both
+        // modes at the original clock text size. Each source-attached glow
+        // stays inside its slot.
         Row {
             id: clockRow
 
@@ -67,6 +68,7 @@ Item {
 
                         text: " ๋࣭"
                         color: Colors.white
+                        opacity: 0.8
                         font.pixelSize: 20
                     }
 
@@ -84,8 +86,8 @@ Item {
                             clockButton.pressed
                             ? 1.0
                             : clockButton.hovered
-                            ? 0.76
-                            : 0.52
+                            ? 0.90
+                            : 0.72
 
                         color:
                             clockArea.is24Hour
@@ -150,6 +152,7 @@ Item {
 
                         text: "⭑"
                         color: Colors.white
+                        opacity: 0.8
                         font.pixelSize: 20
                     }
 
@@ -167,8 +170,8 @@ Item {
                             clockButton.pressed
                             ? 1.0
                             : clockButton.hovered
-                            ? 0.76
-                            : 0.52
+                            ? 0.90
+                            : 0.72
 
                         color:
                             clockArea.is24Hour
@@ -244,6 +247,7 @@ Item {
 
                         text: ":"
                         color: Colors.white
+                        opacity: 0.8
                         font.pixelSize: 20
                     }
 
@@ -261,8 +265,8 @@ Item {
                             clockButton.pressed
                             ? 1.0
                             : clockButton.hovered
-                            ? 0.8
-                            : 0.6
+                            ? 0.90
+                            : 0.72
 
                         color:
                             clockArea.is24Hour
@@ -327,6 +331,7 @@ Item {
 
                         text: Qt.formatDateTime(clock.date, "AP")
                         color: Colors.white
+                        opacity: 0.8
                         font.pixelSize: 20
                     }
 
@@ -344,8 +349,8 @@ Item {
                             clockButton.pressed
                             ? 1.0
                             : clockButton.hovered
-                            ? 0.8
-                            : 0.6
+                            ? 0.90
+                            : 0.72
 
                         color:
                             clockArea.is24Hour
