@@ -62,10 +62,9 @@ Item {
                     font.pixelSize: 20
                 }
 
-                DropShadow {
+                SafeDropShadow {
                     anchors.fill: clockIcon
-                    source: clockIcon
-
+                    safeSource: clockIcon
                     horizontalOffset: 0
                     verticalOffset: 0
                     radius: 14
@@ -109,10 +108,9 @@ Item {
                     font.pixelSize: 20
                 }
 
-                DropShadow {
+                SafeDropShadow {
                     anchors.fill: clockText
-                    source: clockText
-
+                    safeSource: clockText
                     horizontalOffset: 0
                     verticalOffset: 0
                     radius: 14

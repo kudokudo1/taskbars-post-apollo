@@ -159,12 +159,11 @@ DockButton {
                 }
             }
 
-            DropShadow {
+            SafeDropShadow {
                 id: iconGlow
 
                 anchors.fill: volumebarIcon
-                source: volumebarIcon
-
+                safeSource: volumebarIcon
                 horizontalOffset: 0
                 verticalOffset: 0
 
@@ -215,12 +214,11 @@ DockButton {
                 }
             }
 
-            DropShadow {
+            SafeDropShadow {
                 id: textGlow
 
                 anchors.fill: volumebarText
-                source: volumebarText
-
+                safeSource: volumebarText
                 horizontalOffset: 0
                 verticalOffset: 0
 
