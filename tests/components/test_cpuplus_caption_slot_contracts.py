@@ -54,10 +54,49 @@ assert "? 0.10 : 0.06" in slot
 assert column.count("TextHashGlow {") == 2
 assert "safeSource: modeCaption" not in column[:slot_open] + column[slot_end:]
 assert "safeSource: textModeIcon" in column
+
+# Both icons and captions are individually laid out semantic slots, not
+# external source effects treated as independent children by the Column.
+icon_id = column.index("id: modeIconSlot")
+icon_item = column.rfind("Item {", 0, icon_id)
+icon_open = column.index("{", icon_item)
+icon, icon_end = block_at_open_brace(column, icon_open)
+assert column[:icon_open].count("{") - column[:icon_open].count("}") == 1
+assert "GohuText {" in icon
+assert "id: textModeIcon" in icon
+assert "safeSource: textModeIcon" in icon
+assert icon.count("TextHashGlow {") == 1
+assert "clip: false" in icon
+assert "clip: false" in slot
+assert "clip: false" in column
+assert column.count("TextHashGlow {") == (
+    icon.count("TextHashGlow {") + slot.count("TextHashGlow {")
+)
+
 assert "duration: 90" in mode
 assert "Easing.OutQuad" in mode
 assert "cpuPlusWindow.selectMode(index)" in mode
 assert mode.count("ModeButtonCloseHalo {") == 1
 assert mode.count("ModeButtonWideHalo {") == 1
+
+# The thermal composition must have ONE owner shared with AppControl.
+# Previously CpuPlusW held an almost exact copy of ThermalIcon.qml, which
+# makes repairs diverge and lets different icon/glow contracts accumulate.
+assert 'import "thermal"' in qml
+assert qml.count("id: thermalIconComponent") == 1
+component = qml[
+    qml.index("id: thermalIconComponent"):
+    qml.index("// WINDOW", qml.index("id: thermalIconComponent"))
+]
+assert component.count("ThermalIcon { }") == 1
+assert "id: thermalIconRoot" not in qml
+assert "item.glowColor" not in qml
+assert qml.count("item.iconColor = Qt.binding") == 4
+assert qml.count("item.glowOpacity =") == 4
+assert qml.count("item.pressed = Qt.binding") == 3
+shared = (ROOT / "widgets/thermal/ThermalIcon.qml").read_text(encoding="utf-8")
+assert "property color iconColor:" in shared
+assert "property real glowOpacity:" in shared
+assert "property bool pressed:" in shared
 
 print("CPU++ caption-slot construction contracts: PASS")
