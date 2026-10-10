@@ -11,7 +11,9 @@ ROOT = Path(__file__).resolve().parents[2]
 # the same visible source.
 SURFACES = {
     "modules/Clock.qml": (
+        "clockLeftStar",
         "clockIcon",
+        "clockRightStar",
         "clockHour",
         "clockColon",
         "clockMinute",
@@ -57,15 +59,23 @@ assert "workspacesButtonMouse.pressed ? 1.0" in workspaces
 assert "workspacesButtonMouse.containsMouse ? 0.8" in workspaces
 
 clock = (ROOT / "modules/Clock.qml").read_text(encoding="utf-8")
-for source in ("clockIcon", "clockHour", "clockColon", "clockMinute", "clockPeriod"):
+for source in (
+    "clockLeftStar",
+    "clockIcon",
+    "clockRightStar",
+    "clockHour",
+    "clockColon",
+    "clockMinute",
+    "clockPeriod",
+):
     assert f"id: {source}" in clock
     assert f"safeSource: {source}" in clock
 
-# The operator-approved direction is intentionally multicolor rather than one
-# uniformly tinted time string.
-assert "color: Colors.orange" in clock
-assert "color: Colors.cyan" in clock
-assert "color: Colors.magenta" in clock
-assert "color: Colors.yellow" in clock
+# The operator-approved direction keeps cyan as the clock's primary identity
+# while white carries ornament and punctuation.
+assert clock.count("color: Colors.cyan") >= 3
+assert clock.count("color: Colors.white") >= 4
+assert "color: Colors.magenta" not in clock
+assert "color: Colors.yellow" not in clock
 
 print("Non-CPU sampled-glow structural contracts: PASS")
