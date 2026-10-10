@@ -409,8 +409,8 @@ PanelWindow {
 
     // ============================================================
     // SHARED THERMAL ICON
-    // Copied from AppControl's canonical THERMAL composition so the
-    // two surfaces speak the same visual language.
+    // AppControl and CPU++ use the same widgets/thermal/ThermalIcon.qml
+    // source; do not duplicate its glyph/effect implementation here.
     // ============================================================
 
     // Reuse the AppControl/CPU++ shared glyph construction.
