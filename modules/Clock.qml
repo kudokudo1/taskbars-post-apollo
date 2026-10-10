@@ -38,10 +38,11 @@ Item {
             precision: SystemClock.Seconds
         }
 
-        // The clock keeps one cyan primary identity while white punctuation
-        // and ornament separate the stars, colon, and period/suffix. Each
-        // source-attached glow stays inside the same fixed slot as its visible
-        // source so the Row only owns semantic units, never effects.
+        // The clock keeps a cyan primary identity in 12-hour mode and shifts
+        // that primary identity to orange in alternate 24-hour mode. White
+        // punctuation/ornament separates the stars, colon, and AM/PM suffix.
+        // Each source-attached glow stays inside the same fixed slot as its
+        // visible source so the Row only owns semantic units, never effects.
         Row {
             id: clockRow
 
@@ -86,7 +87,10 @@ Item {
                             ? 0.76
                             : 0.52
 
-                        color: Colors.white
+                        color:
+                            clockArea.is24Hour
+                            ? Colors.orange
+                            : Colors.white
                         transparentBorder: true
                     }
                 }
@@ -102,7 +106,10 @@ Item {
                         anchors.centerIn: parent
 
                         text: "🕰"
-                        color: Colors.cyan
+                        color:
+                            clockArea.is24Hour
+                            ? Colors.orange
+                            : Colors.cyan
                         font.pixelSize: 20
                     }
 
@@ -123,7 +130,10 @@ Item {
                             ? 0.8
                             : 0.6
 
-                        color: Colors.cyan
+                        color:
+                            clockArea.is24Hour
+                            ? Colors.orange
+                            : Colors.cyan
                         transparentBorder: true
                     }
                 }
@@ -187,7 +197,10 @@ Item {
                             ? Qt.formatDateTime(clock.date, "HH")
                             : Qt.formatDateTime(clock.date, "hh")
 
-                        color: Colors.cyan
+                        color:
+                            clockArea.is24Hour
+                            ? Colors.orange
+                            : Colors.cyan
                         font.pixelSize: 20
                     }
 
@@ -208,7 +221,10 @@ Item {
                             ? 0.8
                             : 0.6
 
-                        color: Colors.cyan
+                        color:
+                            clockArea.is24Hour
+                            ? Colors.orange
+                            : Colors.cyan
                         transparentBorder: true
                     }
                 }
@@ -261,7 +277,10 @@ Item {
                         anchors.centerIn: parent
 
                         text: Qt.formatDateTime(clock.date, "mm")
-                        color: Colors.cyan
+                        color:
+                            clockArea.is24Hour
+                            ? Colors.orange
+                            : Colors.cyan
                         font.pixelSize: 20
                     }
 
@@ -282,7 +301,10 @@ Item {
                             ? 0.8
                             : 0.6
 
-                        color: Colors.cyan
+                        color:
+                            clockArea.is24Hour
+                            ? Colors.orange
+                            : Colors.cyan
                         transparentBorder: true
                     }
                 }
@@ -302,7 +324,10 @@ Item {
                             ? "24H"
                             : Qt.formatDateTime(clock.date, "AP")
 
-                        color: Colors.white
+                        color:
+                            clockArea.is24Hour
+                            ? Colors.orange
+                            : Colors.white
                         font.pixelSize: 11
                     }
 
