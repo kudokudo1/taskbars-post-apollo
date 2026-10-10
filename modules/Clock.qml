@@ -53,7 +53,8 @@ Item {
         // stars and punctuation accents remain white at 0.6 opacity while
         // their stronger glows carry the active mode color. AM/PM is a normal
         // module-state element again: cyan in 12-hour mode, orange in 24-hour
-        // mode, at default opacity and slightly smaller than the clock body.
+        // mode, at default opacity and the original 20px size. The // slot
+        // carries a tiny geometry gap on each side without literal spaces.
         // Each source-attached glow stays inside its slot.
         Row {
             id: clockRow
@@ -333,7 +334,9 @@ Item {
                 Item {
                     id: clockPeriodSeparatorContainer
 
-                    width: clockPeriodSeparator.implicitWidth
+                    // Tiny visual breathing room around // without inserting
+                    // a full text-space into the clock output.
+                    width: clockPeriodSeparator.implicitWidth + 4
                     height: 20
 
                     GohuText {
@@ -386,7 +389,7 @@ Item {
                             clockArea.is24Hour
                             ? Colors.orange
                             : Colors.cyan
-                        font.pixelSize: 17
+                        font.pixelSize: 20
                     }
 
                     SafeDropShadow {
