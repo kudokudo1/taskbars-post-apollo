@@ -84,6 +84,9 @@ assert 'Qt.formatDateTime(clock.date, "HH")' in clock
 assert 'text: "//"' in clock
 assert 'text: Qt.formatDateTime(clock.date, "AP")' in clock
 assert '? "24H"' not in clock
+assert "property int contentEdgePadding: 2" in clock
+assert "Math.ceil(clockRow.implicitWidth)" in clock
+assert "+ (contentEdgePadding * 2)" in clock
 assert clock.count("color: Colors.white") >= 3
 assert clock.count("opacity: 0.6") >= 4
 assert clock.count("? 0.90") >= 4
