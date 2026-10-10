@@ -73,8 +73,10 @@ for source in (
 
 # The operator-approved direction keeps cyan as the clock's primary identity
 # while white carries ornament and punctuation.
-assert clock.count("color: Colors.cyan") >= 3
-assert clock.count("color: Colors.white") >= 4
+assert "clockArea.is24Hour ? Colors.orange : Colors.cyan" in clock
+assert "clockArea.is24Hour\n                            ? Colors.orange\n                            : Colors.cyan" in clock
+assert "clockArea.is24Hour\n                            ? Colors.orange\n                            : Colors.white" in clock
+assert clock.count("color: Colors.white") >= 3
 assert "color: Colors.magenta" not in clock
 assert "color: Colors.yellow" not in clock
 
