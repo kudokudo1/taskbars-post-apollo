@@ -40,6 +40,68 @@ It is not a directive to replace all QML shadows or normalize every widget.
   source-attached text/icon effects. Do not replace it with unguarded
   `layer.effect: DropShadow` during cleanup.
 
+## Green-family semantic recipes (operator decision 003)
+
+**Green is a two-token family, not three separate hex colors.**
+
+- **Omnitrix** is `Colors.omnitrix` (`#00F782`), the brighter primary green.
+- **Sub-Omnitrix** is `Colors.green` (`#9ECE6A`), the original palette
+  green and quieter alternate. It helps prevent too many competing strong
+  green elements in a dense area.
+- Pairings and layered glows are **rendering treatments**, not newly
+  invented palette tokens. The relationship is analogous to yellow/orange
+  and dark/black: related colors with distinct responsibilities.
+
+The operator established these **three semantic recipes**:
+
+| Identity / role | Base / foreground identity | Glow identity | Intended use |
+| --- | --- | --- | --- |
+| **Audio / systems** | Omnitrix (`Colors.omnitrix`) | Omnitrix (`Colors.omnitrix`) | Microphones, audio, mute/volume, sound, hardware, system and screen/window controls where the role fits |
+| **AI / automation** | Sub-Omnitrix (`Colors.green`) | Sub-Omnitrix (`Colors.green`) | AI and automated operations; relevant Git automation controls |
+| **Yes / confirmation** | Sub-Omnitrix (`Colors.green`) | Omnitrix (`Colors.omnitrix`) | Explicit affirmative and confirmation controls: related to the other greens, but more energized and visually distinct |
+
+**Composition and interaction are separate axes.** These pairings describe
+the control's green-family identity, not mandatory colors for every border,
+fill, pressed face, selection ring, or adjacent decoration.
+
+- A specialized green control can **retain its chosen green-family
+  foreground/border/glow through hover or selection** while using a
+  **yellow selection fill**. A selected control does not automatically
+  need an orange glow; orange/magenta generic state transitions are defaults,
+  not compulsory replacements for specialized identity.
+- Contrasting magenta borders/glows and other purposeful multicolor
+  effects remain permitted. Pressed states may have their own treatment.
+  Respect intentional front/rear halo stacking, transparent positioning
+  geometry, and multiple layered glows.
+- Sub-Omnitrix may be used with a weak self-colored glow or without a strong
+  Omnitrix halo where visual density requires restraint.
+- `TextHashGlow`'s existing **green foreground -> Omnitrix glow** pairing
+  remains a useful *default* (especially for confirmation). To express an
+  AI/automation **green -> green** text glow, the consumer must explicitly
+  request `preferredGlowColor: Colors.green`; do not globally change the
+  default or erase the component's separate magenta-foreground invariant.
+
+**Rollout / scope boundaries:**
+
+- This section establishes **target semantic vocabulary**, not a bulk
+  recoloring order or a claim that current widgets already conform.
+- Preserve existing audio/systems/screen controls while documenting and
+  reviewing exceptions; the operator chose Omnitrix/Omnitrix in part to
+  avoid unnecessarily rebuilding that established family.
+- **Git is not synonymous with AI.** Existing green Git accents also express
+  staging, constructive actions, healthy state, and ordinary color variety.
+  Classify the actual action before assigning a recipe; do not interpret
+  every green Git occurrence as AI or every green confirmation as automation.
+- Existing mixed-green AppControl mute appearances, green specialty sliders,
+  and intentional magenta contrast should not be auto-recolored just because
+  they differ from the default recipe. Keep source evidence and seek operator
+  acceptance before changing those treatments.
+- **Third-party / outside-theme greens**, including the existing Oasis
+  Neovim palette, remain untouched until the operator explicitly chooses
+  to unify them.
+- No new QML component or palette hex is mandated by these rules. Runtime
+  verification and owner coordination are required for future migrations.
+
 ## Consumer contract
 
 Use `ModeButtonCloseHalo` and `ModeButtonWideHalo` directly inside each
